@@ -51,7 +51,7 @@ const API_URL = "http://localhost:3000/alunos"; // Change to your Render URL if 
         tr.innerHTML = `
           <td>${aluno.nome}</td>
           <td>${aluno.apelido}</td>
-          <td>${aluno.curso}</td>
+          <td>${aluno.curso == 1? 'Engenharia da Computação Gráfica e Multimédia':'Engenharia de Redes e Sistemas de Computadores'}</td>
           <td>${aluno.anoCurricular}</td>
           <td>
             <button onclick="editAluno('${aluno._id}', '${aluno.nome}', '${aluno.apelido}', '${aluno.curso}', ${aluno.anoCurricular})">Editar</button>
