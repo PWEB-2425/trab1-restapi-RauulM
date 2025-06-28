@@ -1,67 +1,81 @@
-// JS para operações CRUD com Fetch API
-const API_URL = 'http://localhost:3001/alunos';
+const API_URL = "http://localhost:3000/alunos"; // Change to your Render URL if deployed
 
-const listaAlunos = document.getElementById('lista-alunos');
-const form = document.getElementById('aluno-form');
+    const form = document.getElementById('alunoForm');
+    const tbody = document.getElementById('alunoTableBody');
 
-function carregarAlunos() {
-  fetch(API_URL)
-    .then(res => res.json())
-    .then(alunos => {
-      listaAlunos.innerHTML = '';
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('id').value;
+      const aluno = {
+        nome: document.getElementById('nome').value,
+        apelido: document.getElementById('apelido').value,
+        curso: document.getElementById('curso').value,
+        anoCurricular: parseInt(document.getElementById('anoCurricular').value)
+      };
+
+      try {
+        if (id) {
+          // Update
+          await fetch(`${API_URL}/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(aluno)
+          });
+        } else {
+          // Create
+          await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(aluno)
+          });
+        }
+        resetForm();
+        fetchAlunos();
+      } catch (err) {
+        console.error('Erro ao salvar aluno:', err);
+      }
+    });
+
+    function resetForm() {
+      form.reset();
+      document.getElementById('id').value = '';
+    }
+
+    async function fetchAlunos() {
+      const res = await fetch(API_URL);
+      const alunos = await res.json();
+
+      tbody.innerHTML = '';
       alunos.forEach(aluno => {
-        const li = document.createElement('li');
-        li.textContent = `${aluno.nome} ${aluno.apelido} - Curso ${aluno.curso} (${aluno.anoCurricular}º ano)`;
-        li.innerHTML += `
-          <button onclick="editarAluno(${aluno.id})">Editar</button>
-          <button onclick="deletarAluno(${aluno.id})">Excluir</button>
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${aluno.nome}</td>
+          <td>${aluno.apelido}</td>
+          <td>${aluno.curso}</td>
+          <td>${aluno.anoCurricular}</td>
+          <td>
+            <button onclick="editAluno('${aluno._id}', '${aluno.nome}', '${aluno.apelido}', '${aluno.curso}', ${aluno.anoCurricular})">Editar</button>
+            <button onclick="deleteAluno('${aluno._id}')">Apagar</button>
+          </td>
         `;
-        listaAlunos.appendChild(li);
+        tbody.appendChild(tr);
       });
-    });
-}
+    }
 
-form.onsubmit = function (e) {
-  e.preventDefault();
-  const aluno = {
-    nome: form.nome.value,
-    apelido: form.apelido.value,
-    curso: form.curso.value,
-    anoCurricular: parseInt(form.anoCurricular.value)
-  };
-  const id = form['aluno-id'].value;
-  if (id) {
-    fetch(`${API_URL}/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(aluno)
-    }).then(carregarAlunos);
-  } else {
-    fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(aluno)
-    }).then(carregarAlunos);
-  }
-  form.reset();
-};
+    function editAluno(id, nome, apelido, curso, anoCurricular) {
+      document.getElementById('id').value = id;
+      document.getElementById('nome').value = nome;
+      document.getElementById('apelido').value = apelido;
+      document.getElementById('curso').value = curso;
+      document.getElementById('anoCurricular').value = anoCurricular;
+    }
 
-function editarAluno(id) {
-  fetch(`${API_URL}/${id}`)
-    .then(res => res.json())
-    .then(aluno => {
-      form['aluno-id'].value = aluno.id;
-      form.nome.value = aluno.nome;
-      form.apelido.value = aluno.apelido;
-      form.curso.value = aluno.curso;
-      form.anoCurricular.value = aluno.anoCurricular;
-    });
-}
+    async function deleteAluno(id) {
+      if (confirm("Tem certeza que deseja apagar este aluno?")) {
+        await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+        fetchAlunos();
+      }
+    }
 
-function deleteAluno(id) {
-  fetch(`${API_URL}/${id}`, {
-    method: 'DELETE'
-  }).then(carregarAlunos);
-}
-
-carregarAlunos();
+    // Load data initially
+    fetchAlunos();
