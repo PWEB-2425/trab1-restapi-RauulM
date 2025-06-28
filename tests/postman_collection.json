@@ -1,0 +1,92 @@
+{
+	"info": {
+		"_postman_id": "3b2ad822-160b-476a-b015-012f89aee9a6",
+		"name": "Trabalho 1 API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "27034607"
+	},
+	"item": [
+		{
+			"name": "getAlunos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:3001/alunos"
+			},
+			"response": []
+		},
+		{
+			"name": "getCursos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:3001/cursos"
+			},
+			"response": []
+		},
+		{
+			"name": "postAluno",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"{{nome}}\",\r\n  \"apelido\": \"{{apelido}}\",\r\n  \"curso\": \"{{curso}}\",\r\n  \"anoCurricular\": {{anoCurricular}},\r\n  \"idade\": {{idade}}\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:3001/postAluno"
+			},
+			"response": []
+		},
+		{
+			"name": "updateAluno",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"{{nome}}\",\r\n    \"apelido\": \"{{apelido}}\",\r\n    \"curso\": \"{{curso}}\",\r\n    \"anoCurricular\": {{anoCurricular}},\r\n    \"idade\": {{idade}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/updateAluno/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"updateAluno",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteAluno",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "localhost:3001/alunos/6d09"
+			},
+			"response": []
+		}
+	]
+}
