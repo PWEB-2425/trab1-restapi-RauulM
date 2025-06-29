@@ -25,6 +25,8 @@ Clonar o repositório e navegar até a pasta do backend:
 
  npm install
 
+ Criar o ficheiro .env (MONGO_URI=mongodbkey)
+
  npm start
 
 Depois do server estar conectado ao MongoDB, aceder ao link https://trab1-restapi-rauul-m-ijzd.vercel.app/ e experimentar
