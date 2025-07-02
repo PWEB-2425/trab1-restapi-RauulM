@@ -42,7 +42,7 @@ const API_URL = "https://trab1-restapi-rauulm.onrender.com";
     }
 
     async function fetchAlunos() {
-      const res = await fetch(API_URL);
+      const res = await fetch(`${API_URL}/alunos`);
       const alunos = await res.json();
 
       tbody.innerHTML = '';
