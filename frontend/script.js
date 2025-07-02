@@ -1,5 +1,5 @@
-const API_URL = "https://trab1-restapi-rauulm.onrender.com"; 
-
+const API_URL = "https://trab1-restapi-rauulm.onrender.com/alunos";
+  
     const form = document.getElementById('alunoForm');
     const tbody = document.getElementById('alunoTableBody');
 
@@ -42,7 +42,7 @@ const API_URL = "https://trab1-restapi-rauulm.onrender.com";
     }
 
     async function fetchAlunos() {
-      const res = await fetch(`${API_URL}/alunos`);
+      const res = await fetch(API_URL);
       const alunos = await res.json();
 
       tbody.innerHTML = '';
