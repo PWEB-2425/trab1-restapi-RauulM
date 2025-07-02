@@ -1,1 +1,60 @@
-<!-- Página CRUD de Alunos -->
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Gestão de Alunos</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+    }
+
+    input,
+    select,
+    button {
+      margin: 0.5rem;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 0.5rem;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Gestão de Alunos</h1>
+
+  <form id="alunoForm">
+    <input type="hidden" id="id" />
+    <input type="text" id="nome" placeholder="Nome" required />
+    <input type="text" id="apelido" placeholder="Apelido" required />
+    <input type="text" id="curso" placeholder="Curso(1 ou 2)" required />
+    <input type="number" id="anoCurricular" placeholder="Ano Curricular" required />
+    <button type="submit">Guardar</button>
+    <button type="button" onclick="resetForm()">Cancelar</button>
+  </form>
+
+  <h2>Lista de Alunos</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Apelido</th>
+        <th>Curso</th>
+        <th>Ano</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody id="alunoTableBody"></tbody>
+  </table>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
