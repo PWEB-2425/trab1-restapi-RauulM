@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000/alunos"; // Change to your Render URL if deployed
+const API_URL = "https://trab1-restapi-rauulm.onrender.com"; 
 
     const form = document.getElementById('alunoForm');
     const tbody = document.getElementById('alunoTableBody');
